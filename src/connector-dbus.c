@@ -197,6 +197,15 @@ out:
 	return success;
 }
 
+static void prv_connector_disconnect(void)
+{
+	if (g_context.owner_id) {
+		g_bus_unown_name(g_context.owner_id);
+		g_context.owner_id = 0;
+	}
+
+}
+
 static void prv_connector_shutdown(void)
 {
 	DLEYNA_LOG_DEBUG("Enter");
@@ -207,8 +216,7 @@ static void prv_connector_shutdown(void)
 	if (g_context.clients)
 		g_hash_table_unref(g_context.clients);
 
-	if (g_context.owner_id)
-		g_bus_unown_name(g_context.owner_id);
+	prv_connector_disconnect();
 
 	if (g_context.connection)
 		g_object_unref(g_context.connection);
@@ -572,6 +580,7 @@ static const dleyna_connector_t g_dbus_connector = {
 	prv_connector_initialize,
 	prv_connector_shutdown,
 	prv_connector_connect,
+	prv_connector_disconnect,
 	prv_connector_watch_client,
 	prv_connector_unwatch_client,
 	prv_connector_set_client_lost_cb,
