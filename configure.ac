@@ -39,7 +39,6 @@ PKG_PROG_PKG_CONFIG(0.16)
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.28])
 PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.28])
 PKG_CHECK_MODULES([DBUS], [dbus-1])
-PKG_CHECK_MODULES([DLEYNA_CORE], [dleyna-core-1.0 >= 0.0.1])
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdlib.h string.h syslog.h])
@@ -74,6 +73,16 @@ AC_DEFINE_UNQUOTED([DLEYNA_LOG_LEVEL_INFO],     [${LOG_LEVEL_5}], [Log level fla
 AC_DEFINE_UNQUOTED([DLEYNA_LOG_LEVEL_DEBUG],    [${LOG_LEVEL_6}], [Log level flag for debug messages])
 AC_DEFINE_UNQUOTED([DLEYNA_LOG_LEVEL_DEFAULT],  [${LOG_LEVEL_7}], [Log level flag to display default level messages])
 AC_DEFINE_UNQUOTED([DLEYNA_LOG_LEVEL_ALL],      [${LOG_LEVEL_8}], [Log level flag for all messages])
+
+AC_ARG_ENABLE(master-build,,
+		[],
+		[master_build=no])
+
+AS_IF([test "x$master_build" = "xno"],
+      [PKG_CHECK_MODULES([DLEYNA_CORE], [dleyna-core-1.0 >= 0.0.1])],
+      [DLEYNA_CORE_CFLAGS="-I../dleyna-core";
+       DLEYNA_CORE_LIBS="-L../dleyna-core/.libs -ldleyna-core-1.0"
+      ])
 
 AC_ARG_ENABLE(debug,
 		AS_HELP_STRING(
