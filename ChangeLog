@@ -1,3 +1,4 @@
 version 0.0.1
-	- Initial version of dleyna-connector-dbus
+	- Initial version of dleyna-connector-dbus.
+	- Enable support of deleyna-connector-dbus as git submodules.
 
