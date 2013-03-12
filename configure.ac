@@ -1,7 +1,7 @@
 AC_PREREQ([2.66])
 
 AC_INIT([dleyna-connector-dbus],
-	[0.0.1],
+	[0.0.2],
 	[https://github.com/01org/dleyna-connector-dbus/issues/new],
 	,
 	[https://01.org/dleyna/])
