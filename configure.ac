@@ -138,7 +138,9 @@ AC_ARG_WITH(log-level,
 
 DLEYNA_LOG_LEVEL_CHECK([${with_log_level}])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile	\
+		dleyna-connector-dbus-1.0.pc
+		])
 
 AC_OUTPUT
 

@@ -30,5 +30,11 @@ MAINTAINERCLEANFILES =	Makefile.in		\
 			build-aux/missing	\
 			build-aux/install-sh
 
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = dleyna-connector-dbus-1.0.pc
+
+CLEANFILES = $(pkgconfig_DATA)
+DISTCLEANFILES = $(pkgconfig_DATA)
+
 maintainer-clean-local:
 	rm -rf build-aux
