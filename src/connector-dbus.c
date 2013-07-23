@@ -319,13 +319,21 @@ static void prv_connector_set_client_lost_cb(
 }
 
 static GDBusInterfaceInfo *prv_find_interface_info(gboolean root,
-						   guint interface_index)
+						   const gchar *interface_name)
 {
 	GDBusNodeInfo *node;
+	GDBusInterfaceInfo **interface;
 
 	node = (root) ? g_context.root_node_info : g_context.server_node_info;
 
-	return  node->interfaces[interface_index];
+	interface = node->interfaces;
+	while (*interface) {
+		if (!strcmp(interface_name, (*interface)->name))
+			break;
+		interface++;
+	}
+
+	return  *interface;
 }
 
 static void prv_object_method_call(GDBusConnection *conn,
@@ -372,7 +380,7 @@ static guint prv_connector_publish_object(
 			dleyna_connector_id_t connection,
 			const gchar *object_path,
 			gboolean root,
-			guint interface_index,
+			const gchar* interface_name,
 			const dleyna_connector_dispatch_cb_t *cb_table_1)
 {
 	guint object_id;
@@ -384,7 +392,7 @@ static guint prv_connector_publish_object(
 
 	object = g_new0(dleyna_dbus_object_t, 1);
 
-	info = prv_find_interface_info(root, interface_index);
+	info = prv_find_interface_info(root, interface_name);
 	object_id = g_dbus_connection_register_object(
 						(GDBusConnection *)connection,
 						object_path,
