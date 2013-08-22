@@ -1,3 +1,6 @@
+version 0.2.0
+	- Change publish_object() signature
+
 version 0.1.0
 	- Prepare for first stable branch
 
