@@ -173,7 +173,7 @@ static gboolean prv_connector_initialize(const gchar *server_info,
 	g_context.objects = g_hash_table_new_full(g_direct_hash, g_direct_equal,
 						  g_free, prv_free_dbus_object);
 	g_context.clients = g_hash_table_new_full(g_str_hash, g_str_equal,
-						  g_free, g_free);
+						  g_free, NULL);
 
 	g_context.root_node_info = g_dbus_node_info_new_for_xml(root_info,
 								NULL);
@@ -268,8 +268,8 @@ static void prv_connector_unwatch_client(const gchar *client_name)
 
 	DLEYNA_LOG_DEBUG("Enter");
 
-	client_id = *(guint *)g_hash_table_lookup(g_context.clients,
-						  client_name);
+	client_id = GPOINTER_TO_UINT(g_hash_table_lookup(g_context.clients,
+							 client_name));
 	(void) g_hash_table_remove(g_context.clients, client_name);
 
 	g_bus_unwatch_name(client_id);
@@ -287,7 +287,6 @@ static void prv_lost_client(GDBusConnection *connection, const gchar *name,
 static gboolean prv_connector_watch_client(const gchar *client_name)
 {
 	guint watch_id;
-	guint *client_id;
 	gboolean added = TRUE;
 
 	DLEYNA_LOG_DEBUG("Enter");
@@ -301,10 +300,8 @@ static gboolean prv_connector_watch_client(const gchar *client_name)
 				      G_BUS_NAME_WATCHER_FLAGS_NONE,
 				      NULL, prv_lost_client, NULL,
 				      NULL);
-	client_id = g_new(guint, 1);
-	*client_id = watch_id;
 	g_hash_table_insert(g_context.clients, g_strdup(client_name),
-			    client_id);
+			    GUINT_TO_POINTER(watch_id));
 
 out:
 	DLEYNA_LOG_DEBUG("Exit");
