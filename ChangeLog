@@ -1,3 +1,12 @@
+version 0.3.0
+	- Don't crash when trying to unwatch non-existent client
+	  Merge pull request #10
+	- [m4] Don't use bash arrays in m4 macros
+	- [m4] Don't use bash "let" builtin
+	- [m4] Use AS_VAR_APPEND macro instead of "+="
+	  Merge pull request #12
+	- Changed the Copyright to 2017
+
 version 0.2.0
 	- Change publish_object() signature
 
