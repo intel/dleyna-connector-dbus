@@ -1,0 +1,15 @@
+language: C
+dist: focal
+sudo: true
+
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  - sudo apt install libglib2.0-dev
+  - sudo apt install meson ninja-build clang-tools
+
+script:
+  - meson build
+  - ninja -C build
+  - ninja -C build scan-build
