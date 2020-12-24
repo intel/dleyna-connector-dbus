@@ -6,7 +6,7 @@ before_install:
   - sudo apt-get update -qq
 
 install:
-  - sudo apt install libglib2.0-dev
+  - sudo apt install libglib2.0-dev libgupnp-1.2-dev
   - sudo apt install ninja-build clang-tools python3-pip
 
 script:
