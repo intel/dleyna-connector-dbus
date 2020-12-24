@@ -38,3 +38,5 @@ DISTCLEANFILES = $(pkgconfig_DATA)
 
 maintainer-clean-local:
 	rm -rf build-aux
+
+EXTRA_DIST = meson.build meson_options.txt src/meson.build
