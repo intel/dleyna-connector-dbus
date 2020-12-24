@@ -7,9 +7,10 @@ before_install:
 
 install:
   - sudo apt install libglib2.0-dev
-  - sudo apt install meson ninja-build clang-tools
+  - sudo apt install ninja-build clang-tools python3-pip
 
 script:
+  - pip3 install meson
   - meson build
   - ninja -C build
   - ninja -C build scan-build
