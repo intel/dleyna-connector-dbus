@@ -1,3 +1,7 @@
+version 0.4.0
+	- Remove build-time dependency on dbus-1
+	- Move build system to autotools
+
 version 0.3.0
 	- Don't crash when trying to unwatch non-existent client
 	  Merge pull request #10
