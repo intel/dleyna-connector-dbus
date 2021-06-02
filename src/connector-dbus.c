@@ -218,8 +218,7 @@ static void prv_connector_shutdown(void)
 
 	prv_connector_disconnect();
 
-	if (g_context.connection)
-		g_object_unref(g_context.connection);
+	g_clear_object(&g_context.connection);
 
 	if (g_context.server_node_info)
 		g_dbus_node_info_unref(g_context.server_node_info);
@@ -233,7 +232,7 @@ static void prv_connector_shutdown(void)
 static void prv_bus_acquired(GDBusConnection *connection, const gchar *name,
 			     gpointer user_data)
 {
-	g_context.connection = connection;
+	g_context.connection = g_object_ref (connection);
 	g_context.connected_cb((dleyna_connector_id_t)connection);
 }
 
