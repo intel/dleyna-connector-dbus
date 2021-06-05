@@ -1,4 +1,4 @@
-project('dleyna-connector-dbus', 'c', version: '0.4.0')
+project('dleyna-connector-dbus', 'c', version: '0.4.1')
 
 conf = configuration_data()
 

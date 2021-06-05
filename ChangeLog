@@ -1,3 +1,6 @@
+version 0.4.1
+	- Fix use-after-free on shutdown due to missing
+	  reference on bus
 version 0.4.0
 	- Remove build-time dependency on dbus-1
 	- Move build system to autotools
